@@ -9,7 +9,17 @@ import java.util.function.Supplier;
 public class Main {
 
     public static void main(String[] args) {
-        ImplementRuunable implementRuunable= new ImplementRuunable();
+
+                List<Boolean> list = new ArrayList<>();
+                list.add(true);
+                list.add(Boolean.parseBoolean("FalSe"));
+                list.add(Boolean.TRUE);
+                System.out.print(list.size());
+                System.out.println(list.get(1));
+                System.out.print(list.get(1) instanceof Boolean);
+
+
+       /* ImplementRuunable implementRuunable= new ImplementRuunable();
         Thread thread = new Thread(implementRuunable);
         thread.start();
 
@@ -29,7 +39,7 @@ public class Main {
             System.out.println(Thread.currentThread().toString() + i);
         }
         System.out.println(Thread.currentThread().toString()+ "Main Thread");
-
+*/
     }
 
 
