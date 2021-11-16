@@ -1,14 +1,17 @@
 package com.company.problem;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 
 public class CallableSum implements Callable<Integer> {
     private int a;
     private int b;
+    private List<Integer> listOfNumbers;
 
-    public CallableSum(int a, int b){
+    public CallableSum(int a, int b, List<Integer> list){
         this.a=a;
         this.b=b;
+        this.listOfNumbers= list;
     }
 
     @Override
@@ -17,6 +20,7 @@ public class CallableSum implements Callable<Integer> {
 
         for (int i=a;i<=b;i++){
             sum+=i;
+            listOfNumbers.add(i);
         }
         return sum;
     }

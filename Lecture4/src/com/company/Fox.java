@@ -1,26 +1,24 @@
 package com.company;
 
+import jdk.jshell.spi.ExecutionControl;
+
 import java.util.concurrent.*;
 class Food {}
 class Water {}
 public class Fox {
-    public void eatAndDrink(Food food, Water water) {
+    public void eatAndDrink(Food food, Water water,String name) {
         synchronized(food) {
-            System.out.println("Got Food!");
+            System.out.println(name+" Got Food!");
             move();
             synchronized(water) {
-                System.out.println("Got Water!");
+                System.out.println(name+ " Got Water!");
             }
         }
     }
-    public void drinkAndEat(Food food, Water water) {
-        synchronized(water) {
-            System.out.println("Got Water!");
-            move();
-            synchronized(food) {
-                System.out.println("Got Food!");
-            }
-        }
+
+    @Deprecated
+    public void drinkAndEat(Food food, Water water) throws ExecutionControl.NotImplementedException {
+        throw new ExecutionControl.NotImplementedException("");
     }
     public void move() {
         try {
@@ -35,12 +33,13 @@ public class Fox {
         Fox tails = new Fox();
         Food food = new Food();
         Water water = new Water();
+        //Water water1= new Water();
         // Process data
         ExecutorService service = null;
         try {
             service = Executors.newScheduledThreadPool(10);
-            service.submit(() -> foxy.eatAndDrink(food,water));
-            service.submit(() -> tails.drinkAndEat(food,water));
+            service.submit(() -> foxy.eatAndDrink(food,water,"Foxy"));
+            service.submit(() -> tails.eatAndDrink(food,water,"Tails"));
         } finally {
             if(service != null) service.shutdown();
         }
