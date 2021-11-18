@@ -1,15 +1,10 @@
-package com.company;
+package com.company.cityProblem;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class ResultSetClosed {
+public class Main {
 
     public static void main(String[] args) {
 
@@ -22,36 +17,33 @@ public class ResultSetClosed {
                     DriverManager.getConnection("jdbc:mysql://localhost/world?" +
                             "user=demo&password=12345678");
 
-            // Do something with the Connection
-
-
-            // assume that conn is an already created JDBC connection (see previous examples)
-
-
-
 
             stmt = conn.createStatement();
-            //rs = stmt.executeQuery("SELECT * FROM country WHERE Continent='Asia' ");
-            rs= stmt.executeQuery("SELECT country.name AS Country , city.name as town FROM world.city " +
-                    "join world.country on world.city.CountryCode=world.country.Code " +
-                    "WHERE city.name='Varna';");
-            // or alternatively, if you don't know ahead of time that
-            // the query will be a SELECT...
 
-            /*if (stmt.execute("SELECT * FROM country where code='NLD'")) {
-                rs = stmt.getResultSet();
-            }*/
+            rs = stmt.executeQuery("SELECT country.name AS Country , " +
+                    "city.name as city, " +
+                    "city.Population as Population " +
+                    "FROM world.city " +
+                    "JOIN world.country on world.city.CountryCode=world.country.Code " +
+                    "WHERE city.Population > 1000000;");
 
-            List<String> listOfAsia=new ArrayList<>();
+
+            List<City> listOfCity = new ArrayList<>();
 
             while (rs.next()) {
-                //System.out.println(rs.getString("name"));
-                System.out.println(rs.getString("country"));
-                System.out.println(rs.getString("town"));
 
+                //System.out.println(rs.getString("country"));
+                //System.out.println(rs.getString("city"));
+                //System.out.println(rs.getLong("Population"));
+                City cityToAdd= new City(rs.getString("city"),
+                        rs.getString("country"),
+                        rs.getLong("Population"));
+                listOfCity.add(cityToAdd);
             }
 
-            // Now do something with the ResultSet ....
+            System.out.println(listOfCity);
+            System.out.println(listOfCity.size());
+
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
