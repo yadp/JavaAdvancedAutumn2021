@@ -1,4 +1,4 @@
-package com.company.cityProblem;
+package cityProblem;
 
 import java.sql.*;
 import java.util.ArrayList;
