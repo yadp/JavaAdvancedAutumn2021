@@ -3,9 +3,9 @@ package com.company.cityProblem;
 public class City {
     private String name;
     private String country;
-    private Integer population;
+    private Long population;
 
-    public City(String name, String country, Integer population) {
+    public City(String name, String country, Long population) {
         this.name = name;
         this.country = country;
         this.population = population;
@@ -27,11 +27,11 @@ public class City {
         this.country = country;
     }
 
-    public Integer getPopulation() {
+    public Long getPopulation() {
         return population;
     }
 
-    public void setPopulation(Integer population) {
+    public void setPopulation(Long population) {
         this.population = population;
     }
 

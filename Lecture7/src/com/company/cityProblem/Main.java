@@ -37,7 +37,7 @@ public class Main {
                 //System.out.println(rs.getLong("Population"));
                 City cityToAdd= new City(rs.getString("city"),
                         rs.getString("country"),
-                        rs.getInt("Population"));
+                        rs.getLong("Population"));
 
                 System.out.println(rs.getLong("Population"));
                 listOfCity.add(cityToAdd);
