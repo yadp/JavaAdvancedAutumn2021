@@ -1,17 +1,21 @@
-package com.example.Lecture14.controllers;
+package com.example.Lecture15.controllers;
 
+import com.example.Lecture15.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    PersonService personService;
 
     @GetMapping("/home")
     public String home(){

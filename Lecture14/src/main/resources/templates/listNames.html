@@ -5,9 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Welcome
-    <snap th:text="${username}"></snap>
-    <snap th:text="${secondName}"></snap>
+<h1>Welcome<br>
+   <snap th:each="name:${listNames}">
+       <snap th:text="${name}"></snap><br>
+
+   </snap>
 </h1>
 
 </body>
