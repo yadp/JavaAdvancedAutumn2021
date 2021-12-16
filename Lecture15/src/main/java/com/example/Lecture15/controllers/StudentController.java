@@ -1,8 +1,11 @@
 package com.example.Lecture15.controllers;
 
+import com.example.Lecture15.exception.StudentNotExistingException;
+import com.example.Lecture15.model.ErrorDetails;
 import com.example.Lecture15.model.Student;
 import com.example.Lecture15.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,13 +17,18 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping("/student")
-    public List<Student> listAll(){
-        return studentService.findAll();
+    public ResponseEntity<List<Student>> listAll(){
+        return ResponseEntity
+                .status(200)
+                .header("ExampleHeader","Yavor")
+                .body(studentService.findAll());
+
     }
 
     @GetMapping("/student/{id}")
-    public Student getStudent(@PathVariable int id){
-        return studentService.findById(id);
+    public ResponseEntity<Student>  getStudent(@PathVariable int id){
+        return ResponseEntity.ok().body(studentService.findById(id));
+
     }
 
     @PostMapping("/student")
