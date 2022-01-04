@@ -59,6 +59,15 @@ public class HumanRepository {
     Create find by name method
      */
 
+    public List<Human> findByName(String name){
+        String sql = "Select * from HUMAN where name=?";
+        return jdbc.query(
+                sql,
+                new Object[]{name},
+                new BeanPropertyRowMapper<>(Human.class)
+        );
+    }
+
 
 
 }

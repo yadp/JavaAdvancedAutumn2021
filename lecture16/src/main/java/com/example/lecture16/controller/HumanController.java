@@ -25,8 +25,12 @@ public class HumanController {
     }
 
     @GetMapping("/human")
-    public List<Human> getAll(){
-        return humanRepository.findAllHumans();
+    public List<Human> getAll(@RequestParam(required = false) String name){
+        if(name==null) {
+            return humanRepository.findAllHumans();
+        } else {
+            return humanRepository.findByName(name);
+        }
     }
 
     @GetMapping("/humanAll")
@@ -42,5 +46,10 @@ public class HumanController {
     @GetMapping("/human/{id}")
     public Human getById(@PathVariable int id){
         return humanRepository.findById(id);
+    }
+
+    @GetMapping("/humanName")
+    public List<Human> getByName(@RequestParam(required = false) String name ){
+        return humanRepository.findByName(name);
     }
 }
