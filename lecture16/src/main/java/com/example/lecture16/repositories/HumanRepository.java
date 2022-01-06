@@ -1,6 +1,7 @@
 package com.example.lecture16.repositories;
 
 import com.example.lecture16.model.Human;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
