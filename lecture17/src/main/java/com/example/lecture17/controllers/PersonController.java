@@ -3,18 +3,18 @@ package com.example.lecture17.controllers;
 
 import com.example.lecture17.model.Person;
 import com.example.lecture17.repositories.PersonRepository;
+import com.example.lecture17.services.TransferService;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
-import java.util.List;
 
 @RestController
 public class PersonController {
 
     private final PersonRepository personRepository;
+    private final TransferService transferService;
 
-    public PersonController(PersonRepository personRepository) {
+    public PersonController(PersonRepository personRepository, TransferService transferService) {
         this.personRepository = personRepository;
+        this.transferService = transferService;
     }
 
     @PostMapping("/person")
@@ -29,6 +29,28 @@ public class PersonController {
             return personRepository.findByName(name);
         }
         return personRepository.findAll();
+    }
+
+    @GetMapping("/person/age")
+    public Iterable<Person> listPersonOver(@RequestParam(required = false) Integer over,
+                                           @RequestParam(required = false) Integer under){
+
+        if (over!=0) {
+            return personRepository.findByAgeGreaterThan(over);
+        }
+        return null;
+    }
+
+    @PostMapping("/transfer")
+    public void transferMoney(@RequestParam Long idSender,
+                              @RequestParam Long idReceiver,
+                              @RequestParam Double money){
+        transferService.transfer(idSender,idReceiver,money);
+    }
+
+    @PutMapping("/person/{id}")
+    public void updateMoney( @PathVariable() Long id, @RequestParam(required = true) Double money){
+        personRepository.changeMoney(id,money);
     }
 
     @GetMapping("/person/{id}")
