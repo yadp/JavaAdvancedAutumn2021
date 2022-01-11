@@ -5,6 +5,8 @@ import com.example.lecture18.repositories.PersonRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class TransferService {
     private final PersonRepository personRepository;
@@ -15,9 +17,13 @@ public class TransferService {
 
     @Transactional
     public void transfer(Long idSender, Long idReceiver, Double money){
-        Person sender= personRepository.findById(idSender).get();
+        Optional<Person> senderOptional= personRepository.findById(idSender);
+        if(senderOptional==null || senderOptional.isEmpty()){
+            throw new RuntimeException();
+        }
+        Person sender = senderOptional.get();
         Person receiver= personRepository.findById(idReceiver).get();
-        if(sender.getMoney()<money){
+        if(sender.getMoney() < money){
             throw new RuntimeException();
         }
         personRepository.changeMoney(idSender,sender.getMoney()-money);
