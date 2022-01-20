@@ -8,8 +8,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 import javax.sql.DataSource;
@@ -24,8 +26,15 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService(){
         JdbcUserDetailsManager jdbcUserDetailsManager= new JdbcUserDetailsManager(dataSource);
 
-        UserDetails userAdmin = User.withUsername("yavor").password("1234").authorities("read").build();
-        UserDetails dbAdmin = User.withUsername("sa").password("password").authorities("read").build();
+        UserDetails userAdmin = User.withUsername("yavor")
+                .password(passwordEncoder().encode("1234"))
+                .roles("ADMIN")
+                .build();
+        UserDetails dbAdmin = User
+                .withUsername("sa")
+                .password(passwordEncoder().encode("1234"))
+                .roles("USER")
+                .build();
 
         jdbcUserDetailsManager.createUser(userAdmin);
         jdbcUserDetailsManager.createUser(dbAdmin);
@@ -35,15 +44,19 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic();
+
         http.csrf().disable().authorizeRequests().mvcMatchers("/h2-console/**").permitAll();
         http.headers()
                 .frameOptions()
                 .sameOrigin();
+        http.authorizeRequests().mvcMatchers("/hello").hasAnyRole("USER","ADMIN");
+        http.authorizeRequests().mvcMatchers("/testAdmin").hasRole("ADMIN");
+        //http.authorizeRequests().anyRequest().hasAnyRole("USER");
     }
 }

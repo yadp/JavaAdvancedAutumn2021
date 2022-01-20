@@ -8,4 +8,9 @@ public class HelloController {
     public String hello(){
         return "Hello World";
     }
+
+    @GetMapping("/testAdmin")
+    public String testAdmin(){
+        return "Test Admin";
+    }
 }
