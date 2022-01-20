@@ -1,4 +1,4 @@
-package com.example.lecture20;
+package com.example.lecture20.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
