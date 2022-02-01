@@ -55,8 +55,16 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         http.headers()
                 .frameOptions()
                 .sameOrigin();
-        http.authorizeRequests().mvcMatchers("/hello").hasAnyRole("USER","ADMIN");
+
+        /**
+         * /hello - /hello
+         * /hello/* - /hello, /hello/second, /hello/yavor             NO /hello/yavor/petkov
+         * /hello/** - /hello, /hello/yavor, /hello/yavor/petkov/second, /hello/yavor/petkov/
+         */
+        http.authorizeRequests().mvcMatchers("/hello/**").hasAnyRole("USER","ADMIN");
         http.authorizeRequests().mvcMatchers("/testAdmin").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers("/user").hasRole("ADMIN");
+        http.authorizeRequests().anyRequest().denyAll();
         //http.authorizeRequests().anyRequest().hasAnyRole("USER");
     }
 }
