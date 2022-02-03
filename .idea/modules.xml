@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/demoMaven/demoMaven.iml" filepath="$PROJECT_DIR$/demoMaven/demoMaven.iml" />
       <module fileurl="file://$PROJECT_DIR$/lecture12/lecture12.iml" filepath="$PROJECT_DIR$/lecture12/lecture12.iml" />
       <module fileurl="file://$PROJECT_DIR$/lecture13/lecture13.iml" filepath="$PROJECT_DIR$/lecture13/lecture13.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lecture18/lecture18.iml" filepath="$PROJECT_DIR$/lecture18/lecture18.iml" />
     </modules>
   </component>
 </project>

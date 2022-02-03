@@ -8,32 +8,10 @@ public class Orders {
     private Long id;
     private Long userid;
     private Long bookid;
-    @JsonIgnore
-    private User user;
-    @JsonIgnore
-    private Book book;
 
     public Orders(Long userid, Long bookid) {
         this.userid = userid;
         this.bookid = bookid;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-        this.userid = user.getId();
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-        this.bookid = book.getId();
     }
 
 

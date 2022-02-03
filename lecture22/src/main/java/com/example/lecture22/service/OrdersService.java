@@ -33,9 +33,19 @@ public class OrdersService {
 
         orders = ordersRepository.save(orders);
 
-        orders.setUser(user);
-        orders.setBook(book);
         return orders;
+    }
+
+    public Iterable<Orders> findAll(){
+        return ordersRepository.findAll();
+    }
+
+    public Iterable<Orders> findByUserid(Long userid){
+        return ordersRepository.findByUserid(userid);
+    }
+
+    public Orders findById(Long id){
+        return ordersRepository.findById(id).get();
     }
 
 
