@@ -8,4 +8,8 @@ import org.springframework.stereotype.Repository;
 public interface OrdersRepository extends CrudRepository<Orders,Long> {
 
     Iterable<Orders> findByUserid(Long userid);
+
+    Iterable<Orders> findByBookid(Long bookid);
+
+    Iterable<Orders> findByBookidAndUserid(Long bookid, Long userid);
 }

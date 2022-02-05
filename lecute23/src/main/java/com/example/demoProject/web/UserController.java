@@ -1,7 +1,7 @@
-package com.example.lecture22.web;
+package com.example.demoProject.web;
 
-import com.example.lecture22.model.User;
-import com.example.lecture22.service.UserService;
+import com.example.demoProject.service.UserService;
+import com.example.demoProject.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +13,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/")
-    public Iterable<User> findAll(){
-        return userService.findAll();
+    public Iterable<User> findAll(
+            @RequestParam(required = false, value = "name") String name
+    ){
+        if (name!=null){
+            return userService.findByName(name);
+        }else {
+            return userService.findAll();
+        }
     }
 
     @GetMapping("/{id}")
@@ -27,13 +33,4 @@ public class UserController {
         return userService.save(user);
     }
 
-    @PutMapping("/{id}")
-    public User update(@PathVariable("id") Long id, @RequestBody User user){
-        return userService.update(user,id);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id){
-        userService.deleteById(id);
-    }
 }

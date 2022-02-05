@@ -1,9 +1,9 @@
-package com.example.lecture22.service;
+package com.example.demoProject.service;
 
-import com.example.lecture22.exception.UserDoesNotExist;
-import com.example.lecture22.exception.WrongArguments;
-import com.example.lecture22.model.User;
-import com.example.lecture22.repositories.UserRepository;
+import com.example.demoProject.exceptions.WrongArguments;
+import com.example.demoProject.exceptions.UserDoesNotExist;
+import com.example.demoProject.model.User;
+import com.example.demoProject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +14,10 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public Iterable<User> findByName(String name){
+        return userRepository.findByName(name);
+    }
 
     public Iterable<User> findAll(){
         return userRepository.findAll();
@@ -51,20 +55,4 @@ public class UserService {
         }
         return userRepository.save(user);
     }
-
-    public User update (User user, Long id){
-        User foundUser= findById(id);
-        foundUser.setAddress(user.getAddress());
-        foundUser.setName(user.getName());
-        userRepository.save(foundUser);
-        return foundUser;
-
-    }
-
-    public void deleteById(Long id){
-        userRepository.deleteById(id);
-    }
-
-
-
 }

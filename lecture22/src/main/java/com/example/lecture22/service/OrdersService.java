@@ -44,6 +44,14 @@ public class OrdersService {
         return ordersRepository.findByUserid(userid);
     }
 
+    public Iterable<Orders> findByBookid(Long bookid){
+        return ordersRepository.findByBookid(bookid);
+    }
+
+    public Iterable<Orders> findByBookidAndUserid(Long bookid,Long userid){
+        return ordersRepository.findByBookidAndUserid(bookid,userid);
+    }
+
     public Orders findById(Long id){
         return ordersRepository.findById(id).get();
     }
